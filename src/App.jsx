@@ -1,14 +1,18 @@
-import { Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage/HomePage';
-import CatalogPage from './pages/CarDetailsPage/CatalogPage';
-import CarDetailsPage from './pages/CatalogPage/CarDetailsPage';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage/HomePage.jsx';
+import CatalogPage from './pages/CatalogPage/CatalogPage.jsx';
+import CarDetailsPage from './pages/CarDetailsPage/CarDetailsPage.jsx';
 
-export default function AppRoutes() {
+function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/catalog" element={<CatalogPage />} />
-      <Route path="/catalog/:id" element={<CarDetailsPage />} />
-    </Routes>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/catalog" element={<CatalogPage />} />
+        <Route path="/catalog/:id" element={<CarDetailsPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
+
+export default App;
