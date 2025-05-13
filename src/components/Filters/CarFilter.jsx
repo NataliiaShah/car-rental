@@ -1,46 +1,53 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCars, setFilters, resetCars } from '../../redux/cars/carsSlice';
-import { useState } from 'react';
+import { setFilters } from '../../redux/cars/carsSlice';
 
 export default function CarFilter() {
-  const dispatch = useDispatch();
   const filters = useSelector(state => state.cars.filters);
-  const [localFilters, setLocalFilters] = useState(filters || {});
+  const dispatch = useDispatch();
 
-  const handleChange = (e) => {
-    setLocalFilters(prevState => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const applyFilters = () => {
-    if (JSON.stringify(localFilters) !== JSON.stringify(filters)) {
-      dispatch(resetCars());
-      dispatch(setFilters(localFilters));
-      dispatch(fetchCars(localFilters));
-    }
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(setFilters({ ...filters, [name]: value }));
   };
 
   return (
     <div>
-      <div>
-        <label>Brand: </label>
-        <input name="make" value={localFilters.make || ''} onChange={handleChange} />
-      </div>
-      <div>
-        <label>Price: </label>
-        <input name="price" value={localFilters.price || ''} onChange={handleChange} />
-      </div>
-      <div>
-        <label>Mileage From: </label>
-        <input name="mileageFrom" value={localFilters.mileageFrom || ''} onChange={handleChange} />
-      </div>
-      <div>
-        <label>Mileage To: </label>
-        <input name="mileageTo" value={localFilters.mileageTo || ''} onChange={handleChange} />
-      </div>
-      <button onClick={applyFilters}>Apply filters</button>
+      <label>
+        Make:
+        <input
+          type="text"
+          name="make"
+          value={filters.make}
+          onChange={handleFilterChange}
+        />
+      </label>
+      <label>
+        Max Price:
+        <input
+          type="number"
+          name="price"
+          value={filters.price}
+          onChange={handleFilterChange}
+        />
+      </label>
+      <label>
+        Mileage From:
+        <input
+          type="number"
+          name="mileageFrom"
+          value={filters.mileageFrom}
+          onChange={handleFilterChange}
+        />
+      </label>
+      <label>
+        Mileage To:
+        <input
+          type="number"
+          name="mileageTo"
+          value={filters.mileageTo}
+          onChange={handleFilterChange}
+        />
+      </label>
     </div>
   );
 }

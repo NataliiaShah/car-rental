@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getCars } from '../../services/cars.js';
+import { getCars } from '../../services/cars';
 
 export const fetchCars = createAsyncThunk(
   'cars/fetchCars',
@@ -8,7 +8,6 @@ export const fetchCars = createAsyncThunk(
       const response = await getCars(filters || {});
       return response.data;
     } catch (error) {
-      // Повертаємо більш інформативну помилку
       return thunkAPI.rejectWithValue(error.response?.data?.message || error.message);
     }
   }
@@ -42,7 +41,7 @@ const carsSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchCars.fulfilled, (state, action) => {
-        state.items = action.payload;
+        state.items = action.payload.cars;
         state.loading = false;
       })
       .addCase(fetchCars.rejected, (state, action) => {

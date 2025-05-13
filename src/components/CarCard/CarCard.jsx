@@ -13,7 +13,7 @@ export default function CarCard({ car }) {
     dispatch(toggleFavorite(id));
   };
 
-  // Форматуємо ціну
+  
   const formattedPrice = rentalPrice ? `$${Number(rentalPrice).toFixed(2)}` : 'Price not available';
 
   return (
