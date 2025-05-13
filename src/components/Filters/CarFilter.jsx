@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCars, setFilters, resetCars } from '../cars/carsSlice';
+import { fetchCars, setFilters, resetCars } from '../redux/cars/carsSlice';
 import { useState } from 'react';
 
 export default function CarFilter() {

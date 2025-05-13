@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import carsReducer from './cars/carsSlice';
-import filtersReducer from './filters/CarFilter';
-import favoritesReducer from './favorites/CarCard';
+import filtersReducer from '../components/CarFilter';
+import favoritesReducer from '../components/CarCard/CarCard';
 
 export const store = configureStore({
   reducer: {

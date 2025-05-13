@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getCarById } from '../services/cars';
+import { getCarById } from '../../services/cars';
 
 export default function CarDetailsPage() {
   const { id } = useParams();

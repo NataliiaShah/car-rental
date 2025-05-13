@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchCars } from '../redux/cars/carsSlice';
-import CarCard from '../redux/favorites/CarCard';
-import CarFilter from '../redux/filters/CarFilter';
+import { fetchCars } from '../../redux/cars/carsSlice';
+import CarCard from '../../components/CarCard/CarCard';
+import CarFilter from '../components/CarFilter';
 
 export default function CatalogPage() {
   const { items, loading, error, filters } = useSelector(state => state.cars);
