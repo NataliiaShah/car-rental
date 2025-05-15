@@ -1,39 +1,29 @@
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleFavorite } from '../../redux/favorites/favoritesSlice';
-import { nanoid } from 'nanoid'; 
+import { Link } from 'react-router-dom';
 
-export default function CarCard({ car }) {
-  const { id, make, model, year, img, rentalPrice, mileage } = car;
-
+const CarCard = ({ car }) => {
   const dispatch = useDispatch();
-  const favorites = useSelector(state => state.favorites.items);
-  const isFavorite = favorites.includes(id);
+  const favoriteIds = useSelector(state => state.favorites.items);
+  const isFavorite = favoriteIds.includes(car.id);
 
   const handleToggleFavorite = () => {
-    dispatch(toggleFavorite(id));
+    dispatch(toggleFavorite(car.id));
   };
 
-  const formattedPrice = rentalPrice ? `$${Number(rentalPrice).toFixed(2)}` : 'Price not available';
-  const formattedMileage = mileage ? `${mileage.toLocaleString()} km` : 'Mileage not available';
-
   return (
-    <div className="car-card" key={nanoid()}> 
-      <img
-        src={img || '/path/to/default-image.jpg'}
-        alt={`${make} ${model}`}
-        width="100%"
-        height="auto"
-      />
-      <h3>{make} {model}, {year}</h3>
-      <p>Price: {formattedPrice}</p>
-      <p>Mileage: {formattedMileage}</p>
-
+    <div className="car-card">
+      <img src={car.img} alt={car.make} width="300" />
+      <h3>{car.brand} {car.model}</h3>
+      <p>{car.rentalPrice}</p>
       <button onClick={handleToggleFavorite}>
-        {isFavorite ? '★ In Favorites' : '☆ Add to Favorites'}
+        {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
       </button>
-
-      <Link to={`/catalog/${id}`}>Read more</Link>
+      <Link to={`/catalog/${car.id}`}>
+  <button>Read more</button>
+</Link>
     </div>
   );
-}
+};
+
+export default CarCard;

@@ -1,23 +1,54 @@
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import BookingForm from '../../components/BookingForm/BookingForm';
 
-export default function CarDetailsPage() {
+const CarDetailsPage = () => {
   const { id } = useParams();
-  const cars = useSelector(state => state.cars.items);
-  const car = cars.find(car => car.id === id);
+  const [car, setCar] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  if (!car) {
-    return <p>Car not found.</p>;
-  }
+  useEffect(() => {
+    const fetchCarDetails = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(`https://car-rental-api.goit.global/cars/${id}`);
+        setCar(res.data);
+
+        //console.log('Car data from API:', res.data); 
+
+      } catch (err) {
+        console.error(err);
+        setError('Failed to load car details');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCarDetails();
+  }, [id]);
+
+  if (loading) return <p>Loading car details...</p>;
+  if (error) return <p>{error}</p>;
+  if (!car) return <p>Car not found</p>;
 
   return (
-    <div>
-      <h1>{car.make} {car.model} Details</h1>
-      <img src={car.img || '/path/to/default-image.jpg'} alt={`${car.make} ${car.model}`} />
-      <p>Year: {car.year}</p>
-      <p>Price: ${car.rentalPrice}</p>
-      <p>Mileage: {car.mileage} miles</p>
-      
-    </div>
+    <main>
+      <h2>{car.brand} {car.model}</h2>
+      <img src={car.img} alt={`${car.brand || car.make} ${car.model}`} width="400" />
+      <p><strong>Price:</strong> {car.rentalPrice}</p>
+      <p><strong>Type:</strong> {car.type}</p>
+      <p><strong>Year:</strong> {car.year}</p>
+      <p><strong>Engine:</strong> {car.engineSize} L</p>
+      <p><strong>Accessories:</strong> {car.accessories.join(', ')}</p>
+      <p><strong>Address:</strong> {car.address}</p>
+      <p><strong>Description:</strong> {car.description}</p>
+
+      <h3>Book this car</h3>
+      <BookingForm car={car} />
+    </main>
   );
-}
+};
+
+export default CarDetailsPage;

@@ -1,28 +1,14 @@
-import { useEffect } from "react";
-import CarList from "../../components/CarList/CarList";  
-import { fetchCars } from "../../redux/cars/carsSlice"; 
-import Loader from "../../components/Loader/Loader";
-import { useDispatch, useSelector } from "react-redux"; 
-import CarFilter from "../../components/Filters/CarFilter"; 
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
-  const dispatch = useDispatch();
-  const { items, loading, filters } = useSelector((state) => state.cars); 
-
-  const handleSearch = () => {
-    dispatch(fetchCars({ filters }));  
-  };
-
-  useEffect(() => {
-    handleSearch();  
-  }, [filters]); 
-
   return (
     <main>
-      <h1>Trending Cars Today</h1>
-      {loading && <Loader />} 
-      <CarFilter />
-      <CarList carsList={items} />
+      <section>
+        <h1>Choose your best car rental deal</h1>
+        <p>Book the car you want, at the price you love.</p>
+        
+        <Link to="/catalog">Catalog</Link>
+      </section>
     </main>
   );
 };

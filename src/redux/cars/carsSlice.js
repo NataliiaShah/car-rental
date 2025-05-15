@@ -1,57 +1,69 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const BASE_URL = 'https://car-rental-api.goit.global/cars';
-
 export const fetchCars = createAsyncThunk(
   'cars/fetchCars',
-  async ({ filters, page }) => {
-    const params = {
-      page,
-      limit: 12,
-      ...(filters.make && { make: filters.make }),
-      ...(filters.price && { price: filters.price }),
-      ...(filters.mileageFrom && { mileageFrom: filters.mileageFrom }),
-      ...(filters.mileageTo && { mileageTo: filters.mileageTo }),
-    };
+  async ({ filters = {}, page = 1 }, { rejectWithValue }) => {
+    try {
+      const response = await axios.get('https://car-rental-api.goit.global/cars');
+      
+     // console.log('API response data:', response.data);
 
-    const response = await axios.get(BASE_URL, { params });
-    return {
-      cars: response.data,
-      totalPages: 1, 
-    };
+      let cars = response.data.cars;
+
+      if (filters.brand) {
+        cars = cars.filter(car =>
+          car.brand.toLowerCase().includes(filters.brand.toLowerCase())
+        );
+      }
+
+      if (filters.price) {
+        const maxPrice = parseFloat(filters.price);
+        cars = cars.filter(car => {
+          const priceNumber = parseFloat(car.rentalPrice.replace('$', ''));
+          return priceNumber <= maxPrice;
+        });
+      }
+
+      if (filters.mileageFrom) {
+        cars = cars.filter(car => car.mileage >= parseInt(filters.mileageFrom));
+      }
+
+      if (filters.mileageTo) {
+        cars = cars.filter(car => car.mileage <= parseInt(filters.mileageTo));
+      }
+
+      const perPage = 12;
+      const totalPages = Math.ceil(cars.length / perPage);
+      const paginatedCars = cars.slice((page - 1) * perPage, page * perPage);
+
+      return { cars: paginatedCars, totalPages };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 
-const initialState = {
-  items: [],
-  loading: false,
-  error: null,
-  filters: {
-    make: '',
-    price: '',
-    mileageFrom: '',
-    mileageTo: '',
-  },
-  page: 1,
-};
-
 const carsSlice = createSlice({
   name: 'cars',
-  initialState,
+  initialState: {
+    items: [],
+    loading: false,
+    error: null,
+    page: 1,
+    totalPages: 1,
+  },
   reducers: {
-    loadNextPage: (state) => {
-      state.page += 1;
-    },
-    setFilters: (state, action) => {
-      state.filters = action.payload;
-      state.page = 1;
-      state.items = [];
-    },
-    resetCars: (state) => {
+    resetCars(state) {
       state.items = [];
       state.page = 1;
+      state.totalPages = 1;
       state.error = null;
+    },
+    loadNextPage(state) {
+      if (state.page < state.totalPages) {
+        state.page += 1;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -61,16 +73,25 @@ const carsSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchCars.fulfilled, (state, action) => {
-        const { cars } = action.payload;
         state.loading = false;
-        state.items = [...state.items, ...cars];
+
+        if (state.page === 1) {
+          state.items = action.payload.cars;
+        } else {
+          const newCars = action.payload.cars.filter(newCar =>
+            !state.items.some(existingCar => existingCar.id === newCar.id)
+          );
+          state.items = [...state.items, ...newCars];
+        }
+
+        state.totalPages = action.payload.totalPages;
       })
       .addCase(fetchCars.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload;
       });
   },
 });
 
-export const { loadNextPage, setFilters, resetCars } = carsSlice.actions;
+export const { resetCars, loadNextPage } = carsSlice.actions;
 export default carsSlice.reducer;
