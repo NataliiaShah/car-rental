@@ -1,14 +1,30 @@
-import { useNavigate } from 'react-router-dom';
-import { Container, Button } from 'react-bootstrap'; 
+import { useEffect } from "react";
+import CarList from "../../components/CarList/CarList";  
+import { fetchCars } from "../../redux/cars/carsSlice"; 
+import Loader from "../../components/Loader/Loader";
+import { useDispatch, useSelector } from "react-redux"; 
+import CarFilter from "../../components/Filters/CarFilter"; 
 
-export default function HomePage() {
-  const navigate = useNavigate();
+const HomePage = () => {
+  const dispatch = useDispatch();
+  const { items, loading, filters } = useSelector((state) => state.cars); 
+
+  const handleSearch = () => {
+    dispatch(fetchCars({ filters }));  
+  };
+
+  useEffect(() => {
+    handleSearch();  
+  }, [filters]); 
 
   return (
-    <Container>
-      <h1>Welcome to Car Rental Service</h1>
-      <p>Find your perfect car to rent today!</p>
-      <Button onClick={() => navigate('/catalog')}>View Catalog</Button>
-    </Container>
+    <main>
+      <h1>Trending Cars Today</h1>
+      {loading && <Loader />} 
+      <CarFilter />
+      <CarList carsList={items} />
+    </main>
   );
-}
+};
+
+export default HomePage;
