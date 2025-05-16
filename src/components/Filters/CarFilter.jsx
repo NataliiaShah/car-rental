@@ -14,8 +14,12 @@ const CarFilter = () => {
     dispatch(resetFilters());
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <label>
         Brand:
         <input

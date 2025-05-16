@@ -10,20 +10,15 @@ export default function CatalogPage() {
   const { items, loading, error, page, totalPages } = useSelector(state => state.cars);
 
   useEffect(() => {
-  dispatch(resetCars());
-}, [filters, dispatch]);
+    dispatch(resetCars());
+  }, [filters, dispatch]);
 
-useEffect(() => {
-  console.log('Fetching cars with filters:', filters, 'and page:', page);
-  dispatch(fetchCars({ filters, page }))
-    .unwrap()
-    .then(data => {
-      console.log('Fetch cars success:', data);
-    })
-    .catch(err => {
-      console.error('Fetch cars error:', err);
-    });
-}, [filters, page, dispatch]);
+  useEffect(() => {
+    dispatch(fetchCars({ filters, page }))
+      .unwrap()
+      .catch(err => console.error('Fetch cars error:', err));
+  }, [filters, page, dispatch]);
+
   const handleLoadMore = () => {
     if (page < totalPages && !loading) {
       dispatch(loadNextPage());
@@ -35,7 +30,7 @@ useEffect(() => {
       <h2>Catalog</h2>
       <CarFilter />
       {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
+      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
 
       <div>
         {items.map(car => (

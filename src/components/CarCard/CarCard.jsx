@@ -11,11 +11,14 @@ const CarCard = ({ car }) => {
     dispatch(toggleFavorite(car.id));
   };
 
+  const formattedMileage = new Intl.NumberFormat('uk-UA').format(car.mileage);
+
   return (
     <div className="car-card">
       <img src={car.img} alt={car.make} width="300" />
       <h3>{car.brand} {car.model}</h3>
-      <p>{car.rentalPrice}</p>
+      <p>Price: ${car.rentalPrice}</p>
+      <p>Mileage: {formattedMileage} km</p>
       <button onClick={handleToggleFavorite}>
         {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
       </button>
