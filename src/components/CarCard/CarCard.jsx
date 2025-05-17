@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleFavorite } from '../../redux/favorites/favoritesSlice';
 import { Link } from 'react-router-dom';
+import style from "./CarCard.module.css";
 
 const CarCard = ({ car }) => {
   const dispatch = useDispatch();
@@ -14,19 +15,41 @@ const CarCard = ({ car }) => {
   const formattedMileage = new Intl.NumberFormat('uk-UA').format(car.mileage);
 
   return (
-    <div className="car-card">
-      <img src={car.img} alt={car.make} width="300" />
-      <h3>{car.brand} {car.model}</h3>
-      <p><strong>Year:</strong> {car.year}</p>
-      <p><strong>Location:</strong> {car.address}</p>
-      <p>Price: ${car.rentalPrice}</p>
-      <p>Mileage: {formattedMileage} km</p>
-      <button onClick={handleToggleFavorite}>
-        {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-      </button>
+    <div className={style.carCard}>
+      <div className={style.imageWrapper}>
+        <img className={style.cardImg} src={car.img} alt={car.make}  />
+        
+        <button
+          type="button"
+          className={style.favoriteBtn}
+          onClick={handleToggleFavorite}
+          aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+        >
+          <img
+            src={isFavorite ? '/images/heart-filled.svg' : '/images/heart.svg'}
+            alt="Favorite"
+            className={style.heartIcon}
+          />
+        </button>
+      </div>
+
+      <div className={style.carName}>
+        <div className={style.carTitle}>
+          {car.brand}
+          <span className={style.model}> {car.model}</span>, {car.year}
+        </div>
+        <span className={style.carPrice}>${car.rentalPrice}</span>
+      </div>
+
+      <div className={style.carAddBox}>
+      <p className={style.addText}>
+        {[...car.address.split(', ').reverse()].join(' | ')}
+      </p>
+        <p className={style.addText}> Suv | {formattedMileage} km</p>
+      </div>
       <Link to={`/catalog/${car.id}`}>
-  <button>Read more</button>
-</Link>
+        <button className={style.carBtn}>Read more</button>
+      </Link>
     </div>
   );
 };
