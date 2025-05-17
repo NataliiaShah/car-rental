@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCars, resetCars, loadNextPage } from '../../redux/cars/carsSlice';
 import CarCard from '../../components/CarCard/CarCard';
-import CarFilter from '../../components/Filters/CarFilter';
+import CarFilter from '../../components/CarFilter/CarFilter';
+import style from "./CatalogPage.module.css";
 
 export default function CatalogPage() {
   const dispatch = useDispatch();
@@ -26,8 +27,7 @@ export default function CatalogPage() {
   };
 
   return (
-    <div>
-      <h2>Catalog</h2>
+    <div className={style.catalog}>
       <CarFilter />
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: 'red' }}>Error: {error}</p>}

@@ -1,0 +1,110 @@
+.filterBox {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    gap: 16px;
+    width: 100%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 68px;
+}
+
+.labelText {
+    font-family: "Manrope", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.33333;
+    color: var(--gray);
+    padding-bottom: 8px;
+}
+
+.customSelect {
+    position: relative;
+    width: 204px;
+}
+
+
+
+.selectStyled {
+    width: 100%;
+    padding: 12px 40px 12px 16px;
+    height: 44px;
+    border-radius: 12px;
+    background:var(--inputs);
+    font-family: "Manrope", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color:var(--main);
+    border: none;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.selectIcon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    width: 16px;
+    height: 16px;
+}
+
+.doubleSelectWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 282px;
+    height: 44px;
+    border-radius: 12px;
+    background: #f7f7f7;
+    overflow: hidden;
+}
+
+.selectHalf {
+    flex: 1;
+    height: 100%;
+    padding: 12px 16px;
+    font-family: "Manrope", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--main);
+    border: none;
+    background: transparent;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.selectHalf:focus {
+    outline: none;
+}
+
+.divider {
+    width: 1px;
+    height: 70%;
+    background-color: #c7c7c7;
+}
+
+.filterBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    border-radius: 12px;
+    width: 156px;
+    height: 44px;
+    background: var(--button);
+    font-family: "Manrope", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.25;
+    color: var(--white);
+    margin-top: auto;
+}
