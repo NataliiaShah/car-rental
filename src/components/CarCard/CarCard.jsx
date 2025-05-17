@@ -17,6 +17,8 @@ const CarCard = ({ car }) => {
     <div className="car-card">
       <img src={car.img} alt={car.make} width="300" />
       <h3>{car.brand} {car.model}</h3>
+      <p><strong>Year:</strong> {car.year}</p>
+      <p><strong>Location:</strong> {car.address}</p>
       <p>Price: ${car.rentalPrice}</p>
       <p>Mileage: {formattedMileage} km</p>
       <button onClick={handleToggleFavorite}>

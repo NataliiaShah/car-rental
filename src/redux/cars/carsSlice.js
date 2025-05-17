@@ -17,6 +17,12 @@ export const fetchCars = createAsyncThunk(
         );
       }
 
+      if (filters.model) {
+        cars = cars.filter(car =>
+          car.model.toLowerCase().includes(filters.model.toLowerCase())
+        );
+      }
+
       if (filters.price) {
         const maxPrice = parseFloat(filters.price);
         cars = cars.filter(car => {

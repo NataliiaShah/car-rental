@@ -4,6 +4,7 @@ const filterSlice = createSlice({
   name: 'filters',
   initialState: {
     brand: '',
+    model:'',
     price: '',
     mileageFrom: '',
     mileageTo: '',
@@ -15,6 +16,7 @@ const filterSlice = createSlice({
     resetFilters() {
       return {
         brand: '',
+        model: '',
         price: '',
         mileageFrom: '',
         mileageTo: '',

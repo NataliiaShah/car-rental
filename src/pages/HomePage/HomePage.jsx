@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom';
+import style from "./HomePage.module.css";
 
 const HomePage = () => {
   return (
     <main>
-      <section>
-        <h1>Choose your best car rental deal</h1>
-        <p>Book the car you want, at the price you love.</p>
+      <section className={style.header}>
+        <span className={style.logo}>
+          Rental<span className={style.logoColor}>Car</span>
+        </span>
+        <h1>Find your perfect rental car</h1>
+        <p>Reliable and budget-friendly rentals for any journey</p>
         
-        <Link to="/catalog">Catalog</Link>
+        <Link to="/catalog">View Catalog</Link>
       </section>
     </main>
   );
