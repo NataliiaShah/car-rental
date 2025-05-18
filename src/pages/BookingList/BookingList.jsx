@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import style from './BookingList.module.css';
 
 const BookingList = () => {
   const [bookings, setBookings] = useState([]);
@@ -11,38 +12,20 @@ const BookingList = () => {
   }, []);
 
   if (bookings.length === 0) {
-    return <p>No bookings yet.</p>;
+    return <p className={style.noBookings}>No bookings yet.</p>;
   }
 
   return (
-    <div>
-      <h2>My Bookings</h2>
-      <ul style={{ listStyle: 'none', padding: 0 }}>
+    <div className={style.container}>
+      <h2 className={style.title}>My Bookings</h2>
+      <ul className={style.list}>
         {bookings.map((booking, index) => (
-          <li
-            key={index}
-            style={{
-              border: '1px solid #ccc',
-              padding: '10px',
-              marginBottom: '10px',
-              borderRadius: '4px',
-            }}
-          >
-            <p>
-              <strong>Name:</strong> {booking.name}
-            </p>
-            <p>
-              <strong>Email:</strong> {booking.email}
-            </p>
-            <p>
-              <strong>Booking date:</strong> {new Date(booking.bookingDate).toLocaleString()}
-            </p>
-            <p>
-              <strong>Rental date:</strong> {new Date(booking.date).toLocaleDateString()}
-            </p>
-            <p>
-              <strong>Car:</strong> {booking.carBrand} {booking.carModel}
-            </p>
+          <li key={index} className={style.listItem}>
+            <p><strong>Name:</strong> {booking.name}</p>
+            <p><strong>Email:</strong> {booking.email}</p>
+            <p><strong>Booking date:</strong> {new Date(booking.bookingDate).toLocaleString()}</p>
+            <p><strong>Rental date:</strong> {new Date(booking.date).toLocaleDateString()}</p>
+            <p><strong>Car:</strong> {booking.carBrand} {booking.carModel}</p>
           </li>
         ))}
       </ul>

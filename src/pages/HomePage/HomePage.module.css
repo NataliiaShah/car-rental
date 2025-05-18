@@ -12,7 +12,6 @@
     
 }
 
-
 .contentBlock {
     position: absolute;
     bottom: 60px;
@@ -28,7 +27,7 @@
 }
 
 .title {
-    font-family: "Manrope", sans-serif;
+    font-family: var(--font-family);
     font-weight: 700;
     font-size: 60px;
     line-height: 1.2;
@@ -37,7 +36,7 @@
 }
 
 .subtitle {
-    font-family: "Manrope", sans-serif;
+    font-family: var(--font-family);
     font-weight: 600;
     font-size: 24px;
     line-height: 1.33333;
@@ -47,23 +46,24 @@
 }
 
 .cta {
-        background-color: var(--button);
-        color: var(--white);
-        border-radius: 12px;
-        text-decoration: none;
-        width: 276px;
-        height: 44px;
-        cursor: pointer;
-        font-family: "Manrope", sans-serif;
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 1.25;
-        padding-top: 12px;
-        padding-bottom: 12px;
-        transition: background-color 0.3s ease;
+    background-color: var(--button);
+    color: var(--white);
+    border-radius: 12px;
+    text-decoration: none;
+    width: 276px;
+    height: 44px;
+    cursor: pointer;
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.25;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    transition: background-color 0.3s ease;
        
 }
 
 .cta:hover{
-   background-color: var(--button-hover); 
+   background-color: var(--button-hover);
+   text-decoration: none; 
 }

@@ -46,7 +46,7 @@
 }
 
 .carTitle {
-    font-family: "Manrope", sans-serif;
+    font-family: var(--font-family);
     font-weight: 500;
     font-size: 16px;
     line-height: 1.25;
@@ -58,7 +58,7 @@
 }
 
 .carPrice {
-    font-family: "Manrope", sans-serif;
+    font-family: var(--font-family);
     font-weight: 500;
     font-size: 16px;
     line-height: 1.25;
@@ -78,7 +78,7 @@
 }
 
 .addText {
-    font-family: "Manrope", sans-serif;
+    font-family: var(--font-family);
     font-weight: 400;
     font-size: 12px;
     line-height: 1.33333;
@@ -94,7 +94,7 @@
 .carBtn {
     margin-top: auto;
     border-radius: 12px;
-    font-family: "Manrope", sans-serif;
+    font-family: var(--font-family);
     font-weight: 600;
     font-size: 16px;
     line-height: 1.25;

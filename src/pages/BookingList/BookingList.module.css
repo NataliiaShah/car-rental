@@ -1,0 +1,76 @@
+.container {
+    width: 576px;
+    margin: 0 auto;
+    padding: 24px;
+    background-color: var(--white);
+    border: 1px solid #dadde1;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+    color: var(--main);
+}
+
+.title {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    color: var(--main);
+    text-align: center;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 400px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--button) var(--inputs);
+}
+
+.list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.list::-webkit-scrollbar-track {
+    background: var(--inputs);
+    border-radius: 8px;
+}
+
+.list::-webkit-scrollbar-thumb {
+    background-color: var(--button);
+    border-radius: 8px;
+}
+
+.listItem {
+    border: 1px solid #dadde1;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    background-color: var(--inputs);
+    transition: box-shadow 0.3s ease;
+}
+
+.listItem:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.listItem p {
+    margin: 4px 0;
+    font-size: 16px;
+    line-height: 1.25;
+}
+
+.listItem strong {
+    font-weight: 600;
+    color: var(--button);
+}
+
+.noBookings {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--gray);
+    text-align: center;
+    margin-top: 40px;
+}
