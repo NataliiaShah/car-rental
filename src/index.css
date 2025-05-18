@@ -26,6 +26,8 @@ body {
     --white: #fff;
     --button: #3470ff;
     --button-hover: #0b44cd;
+    --error:#ff4d4f;
+    --success:#00a651;
 
     --font-family: "Manrope", sans-serif;
     --second-family: "Inter", sans-serif;

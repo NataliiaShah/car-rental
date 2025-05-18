@@ -34,11 +34,11 @@
     padding: 12px 40px 12px 16px;
     height: 44px;
     border-radius: 12px;
-    background:var(--inputs);
+    background: var(--inputs);
     font-family: "Manrope", sans-serif;
     font-size: 16px;
     font-weight: 500;
-    color:var(--main);
+    color: var(--main);
     border: none;
     outline: none;
     appearance: none;

@@ -1,6 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useState } from 'react';
+import style from "./BookingForm.module.css"
 
 const BookingForm = ({ car }) => {
   const [success, setSuccess] = useState(false);
@@ -10,6 +11,7 @@ const BookingForm = ({ car }) => {
     name: '',
     email: '',
     date: '',
+    comment: '',
   };
 
   const validationSchema = Yup.object({
@@ -52,30 +54,62 @@ const BookingForm = ({ car }) => {
   };
 
   return (
-    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-      <Form style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: 400 }}>
-        <label>
-          Name:
-          <Field name="name" type="text" />
-          <ErrorMessage name="name" component="div" style={{ color: 'red' }} />
-        </label>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}>
+      <Form className={style.bookingForm}>
+        <div className={style.textBlock}>
+          <h2 className={style.bookingTitle}>Book your car now</h2>
+          <p className={style.bookingSub}>Stay connected! We are always ready to help you.</p>
+        </div>
+        
+        <div className={style.formFields}>
+          <label className={style.bookingLabel}>
+            <Field
+              name="name"
+              type="text"
+              placeholder="Name*"
+              className={style.bookingInput}
+            />
+            <ErrorMessage name="name" component="div" className={style.bookingError} />
+          </label>
+          
+          <label className={style.bookingLabel}>
+            <Field
+              name="email"
+              type="email"
+              placeholder="Email*"
+              className={style.bookingInput}
+            />
+            <ErrorMessage name="email" component="div" className={style.bookingError} />
+          </label>
 
-        <label>
-          Email:
-          <Field name="email" type="email" />
-          <ErrorMessage name="email" component="div" style={{ color: 'red' }} />
-        </label>
+          <label className={style.bookingLabel}>
+            <Field
+              name="date"
+              type="text"
+              placeholder="Booking date"
+              className={style.bookingInput}
+            />
+            <ErrorMessage name="date" component="div" className={style.bookingError} />
+          </label>
 
-        <label>
-          Date:
-          <Field name="date" type="date" />
-          <ErrorMessage name="date" component="div" style={{ color: 'red' }} />
-        </label>
-
-        <button type="submit">Book Now</button>
-
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        {success && <p style={{ color: 'green' }}>Booking request sent successfully!</p>}
+          <label className={style.bookingArea}>
+            <Field
+              as="textarea"
+              name="comment"
+              className={style.bookingTextarea}
+              placeholder="Comment"
+              rows="4"
+            />
+          </label>
+        </div>
+        
+        <button type="submit" className={style.bookingBtn}>Send</button>
+        
+        {error && <p className={style.bookingError}>{error}</p>}
+        {success && <p className={style.bookSuccess}>Booking request sent successfully!</p>}
       </Form>
     </Formik>
   );
