@@ -1,5 +1,47 @@
 .catalog {
-    width: 1440px;
-    height: 1892px;
     background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 84px;
+    padding-bottom: 124px;
+    position: relative;
+    
+}
+
+.cardsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 48px 32px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+       
+}
+
+.filterBlock {
+    margin-bottom: 56px;
+}
+
+.catalogBtn {
+    margin-top: 80px;
+    font-size: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    width: 156px;
+    height: 44px;
+    font-family: "Manrope", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.25;
+    color: var(--main);
+    border: 1px solid var(--button);
+    background-color: var(--white);
+    transition: background-color 0.3s ease;
+        
+}
+
+.catalogBtn:hover {
+    background-color: var(--button-hover);
+    color: var(--white);
 }

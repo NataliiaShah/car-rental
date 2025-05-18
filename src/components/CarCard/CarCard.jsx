@@ -26,27 +26,30 @@ const CarCard = ({ car }) => {
           aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
         >
           <img
-            src={isFavorite ? '/images/heart-filled.svg' : '/images/heart.svg'}
+            src={isFavorite ? '/images/heart.svg' : '/images/heart-filled.svg'}
             alt="Favorite"
             className={style.heartIcon}
           />
         </button>
       </div>
 
-      <div className={style.carName}>
-        <div className={style.carTitle}>
-          {car.brand}
-          <span className={style.model}> {car.model}</span>, {car.year}
+      <div className={style.content}>
+        <div className={style.carName}>
+          <div className={style.carTitle}>
+            {car.brand}
+            <span className={style.model}> {car.model}</span>, {car.year}
+          </div>
+          <span className={style.carPrice}>${car.rentalPrice}</span>
         </div>
-        <span className={style.carPrice}>${car.rentalPrice}</span>
+
+        <div className={style.carAddBox}>
+          <p className={style.addText}>
+            {[...car.address.split(', ').reverse()].join(' | ')}
+          </p>
+          <p className={style.addText}>Suv | {formattedMileage} km</p>
+        </div>
       </div>
 
-      <div className={style.carAddBox}>
-      <p className={style.addText}>
-        {[...car.address.split(', ').reverse()].join(' | ')}
-      </p>
-        <p className={style.addText}> Suv | {formattedMileage} km</p>
-      </div>
       <Link to={`/catalog/${car.id}`}>
         <button className={style.carBtn}>Read more</button>
       </Link>

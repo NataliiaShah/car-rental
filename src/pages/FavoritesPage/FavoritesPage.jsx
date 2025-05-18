@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import CarCard from '../../components/CarCard/CarCard.jsx';
+import style from "./FavoritesPage.module.css";
 
 const FavoritesPage = () => {
   const favoriteIds = useSelector(state => state.favorites.items);
@@ -34,14 +35,17 @@ const FavoritesPage = () => {
   }, [favoriteIds]);
 
   return (
-    <main>
-      <h2>Favorites</h2>
+    <main className={style.catalog}>
       {loading ? (
         <p>Loading...</p>
       ) : favoriteCars.length === 0 ? (
         <p>No favorite cars yet.</p>
       ) : (
-        favoriteCars.map(car => <CarCard key={car.id} car={car} />)
+        <div className={style.cardsGrid}>
+          {favoriteCars.map(car => (
+            <CarCard key={car.id} car={car} />
+          ))}
+        </div>
       )}
     </main>
   );

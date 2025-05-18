@@ -5,11 +5,12 @@ export const fetchCars = createAsyncThunk(
   'cars/fetchCars',
   async ({ filters = {}, page = 1 }, { rejectWithValue }) => {
     try {
-      const response = await axios.get('https://car-rental-api.goit.global/cars');
-      
-     // console.log('API response data:', response.data);
+      const response = await axios.get('https://car-rental-api.goit.global/cars', {
+        params: { page }, 
+      });
 
-      let cars = response.data.cars;
+      const data = response.data;
+      let cars = data.cars;
 
       if (filters.brand) {
         cars = cars.filter(car =>
@@ -39,11 +40,7 @@ export const fetchCars = createAsyncThunk(
         cars = cars.filter(car => car.mileage <= parseInt(filters.mileageTo));
       }
 
-      const perPage = 12;
-      const totalPages = Math.ceil(cars.length / perPage);
-      const paginatedCars = cars.slice((page - 1) * perPage, page * perPage);
-
-      return { cars: paginatedCars, totalPages };
+      return { cars, totalPages: data.totalPages };
     } catch (error) {
       return rejectWithValue(error.message);
     }
